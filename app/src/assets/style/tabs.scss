@@ -1,0 +1,23 @@
+@import "colors";
+
+.tab-list {
+    background-color: $tabs-background;
+
+    .MuiTab-wrapper {
+        align-items: flex-start;
+    }
+}
+
+.tab {
+    background-color: $tabs-inactive;
+    opacity: 0.5;
+
+    &.Mui-selected {
+        background-color: $tabs-active;
+        opacity: 1;
+
+        svg {
+            color: $secondary;
+        }
+    }
+}

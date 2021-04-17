@@ -1,0 +1,7 @@
+- Should split team (majority on documentation) to do prototype and documentation
+
+- Technologies:
+Backend: NodeJS/MySQL
+Frontend: Try React, if too hard, switch to HTML
+
+- Meeting on Monday with TA to see workload

@@ -1,0 +1,36 @@
+#app {
+    min-width: 100vw;
+    min-height: 100vh;
+    padding-top: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#root {
+    overflow: hidden;
+}
+
+.ka-wrapper {
+    min-height: 100%;
+    width: 100%;
+}
+
+.ka-content {
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mapboxgl-ctrl-logo {
+    display: none !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-row {
+    max-height: none !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-cell {
+    max-height: none !important;
+}

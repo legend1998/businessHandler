@@ -1,0 +1,85 @@
+@font-face {
+    font-family: Roboto;
+    src: url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);
+}
+
+html {
+    font-family: Roboto, sans-serif;
+    font-size: 11pt;
+    color: #23223E;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    background-color: #F3F3F3;
+    padding: 4rem 0;
+}
+
+h1 {
+    font-size: 24pt;
+    font-weight: bold;
+    margin: 0 0 1rem 0;
+    color: #23223E !important;
+}
+
+hr {
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+p {
+    margin: 1.5rem 0;
+    opacity: 0.9;
+    color: #23223E !important;
+}
+
+.card {
+    width: 420px;
+    background-color: white;
+    padding: 3rem;
+    border-radius: 4px;
+    margin: 0 auto;
+}
+
+a.button {
+    border-radius: 3px;
+    background-color: #274B65;
+    text-decoration: none;
+    padding: 1rem;
+    color: white;
+    font-weight: 500;
+    font-size: 12pt;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    font-size: 20pt;
+    margin: 0 auto 1.5rem auto;
+    width: 516px;
+    text-align: left;
+    padding-left: 1rem;
+    color: #23223E !important;
+}
+
+.footer {
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    line-height: 1.5rem;
+    margin: 2rem 0 0 0;
+    opacity: 0.6;
+    text-align: center;
+    color: #23223E !important;
+}
+
+.password {
+    font-size: 20pt;
+    font-family: Consolas, monospace;
+    font-weight: bold;
+    text-align: center;
+}

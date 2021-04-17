@@ -1,0 +1,38 @@
+@import "colors";
+
+table {
+    border-collapse: collapse !important;
+}
+
+th {
+    font-weight: bold !important;
+    border-bottom: 1.5px solid #999 !important;
+}
+
+tr.table-row {
+    &.active {
+        background-color: rgba($primary, 0.15);
+        td {
+            position: relative;
+            border-bottom: 1px solid $primary !important;
+        }
+    }
+
+    &.active:not(:first-of-type) {
+        td {
+            &:before {
+                content: '';
+                position: absolute;
+                top: -1px;
+                height: 1px;
+                left: 0;
+                right: 0;
+                background-color: $primary;
+            }
+        }
+    }
+
+    &:hover {
+        background-color: rgba($primary, 0.25);
+    }
+}

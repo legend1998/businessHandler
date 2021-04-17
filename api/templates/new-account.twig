@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <style>{{ STYLE }}</style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <img src="https://erp.soen.solutions/static/media/icon.e25761c6.png" alt="logo" height="50" style="margin-right: 1rem">
+                <strong>SOEN</strong>&nbsp;Solutions
+            </div>
+            <div class="card">
+                <h1>New Account</h1>
+                <hr>
+                <p>{{ BUSINESS_NAME }} has created an account in your name. Use your email address along with the following password to access the SOEN Solutions platform. Your password:</p>
+                <p class="password">{{ PASSWORD }}</p>
+                <p>Click the following link to access the login page. It is highly advised that you change your password as soon as you login to your account.</p>
+                <a href="{{ ACTION }}" class="button" target="_blank">
+                    <span>Login to my account</span>
+                </a>
+                <p>If you think this email might be sent by mistake, please ignore it.</p>
+            </div>
+            <div class="footer">
+                &copy; 2021 SOEN Solutions, Inc.
+                <br/>
+                All rights reserved
+            </div>
+        </div>
+    </body>
+</html>

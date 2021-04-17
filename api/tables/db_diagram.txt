@@ -1,0 +1,181 @@
+Table user as u {
+  id uuid [pk, NOT NULL, default: `uuid_generate_v4()`]
+  business_id uuid [NOT NULL]
+  type varchar(50) [NOT NULL]
+  first_name varchar(50) [NOT NULL]
+  last_name varchar(50) [NOT NULL]
+  email varchar(250) [NOT NULL]
+  password varchar(100) [NOT NULL]
+  created_at timestamptz [NOT NULL, default: `CURRENT_TIMESTAMP`]
+  updated_at timestamptz [NOT NULL, default: `CURRENT_TIMESTAMP`]
+  deleted boolean [NOT NULL, default: false]
+}
+
+Table business as b {
+  id uuid [pk, NOT NULL, default: `uuid_generate_v4()`]
+  owner_id uuid [NOT NULL]
+  type varchar(50) [NOT NULL]
+  name varchar(100) [NOT NULL]
+  currency varchar(10) [NOT NULL]
+  created_at timestamptz [NOT NULL, default: `CURRENT_TIMESTAMP`]
+  updated_at timestamptz [NOT NULL, default: `CURRENT_TIMESTAMP`]
+  deleted boolean [NOT NULL, default: false]
+}
+
+Table location as l {
+  id uuid [pk, NOT NULL, default: `uuid_generate_v4()`]
+  business_id uuid [NOT NULL]
+  name varchar(100) [NOT NULL]
+  type varchar(50) [NOT NULL]
+  latitude float [NOT NULL]
+  longitude float [NOT NULL]
+  address varchar(200) [NOT NULL]
+  postal_code varchar(50) [NOT NULL]
+  phone_number varchar(50)
+  created_at timestamptz [NOT NULL, default: `CURRENT_TIMESTAMP`]
+  updated_at timestamptz [NOT NULL, default: `CURRENT_TIMESTAMP`]
+  deleted boolean [NOT NULL, default: false]
+}
+
+Table item as i {
+  id uuid [pk, NOT NULL, default: `uuid_generate_v4()`]
+  business_id uuid [NOT NULL]
+  name varchar(100) [NOT NULL]
+  description varchar(500) [NOT NULL]
+  type varchar(50) [NOT NULL]
+  image_url varchar(300)
+  price float [NOT NULL]
+  created_at timestamptz [NOT NULL, default: `CURRENT_TIMESTAMP`]
+  updated_at timestamptz [NOT NULL, default: `CURRENT_TIMESTAMP`]
+  deleted boolean [NOT NULL, default: false]
+}
+
+Table location_item as li {
+  item_id uuid [NOT NULL]
+  location_id uuid [NOT NULL]
+  variants varchar(500) [NOT NULL, default: '[]']
+  quantity int [NOT NULL]
+}
+
+Table variant_group as vg {
+  id uuid [pk, NOT NULL, default: `uuid_generate_v4()`]
+  item_id uuid [NOT NULL]
+  name varchar(100) [NOT NULL]
+  description varchar(500) [NOT NULL]
+  created_at timestamptz [NOT NULL, default: `CURRENT_TIMESTAMP`]
+  updated_at timestamptz [NOT NULL, default: `CURRENT_TIMESTAMP`]
+  deleted boolean [NOT NULL, default: false]
+}
+
+Table variant as v {
+  id uuid [pk, NOT NULL, default: `uuid_generate_v4()`]
+  variant_group_id uuid [NOT NULL]
+  name varchar(100) [NOT NULL]
+  created_at timestamptz [NOT NULL, default: `CURRENT_TIMESTAMP`]
+  updated_at timestamptz [NOT NULL, default: `CURRENT_TIMESTAMP`]
+  deleted boolean [NOT NULL, default: false]
+}
+
+Table shipment as s {
+  id uuid [pk, NOT NULL, default: `uuid_generate_v4()`]
+  scheduled_shipment_id uuid
+  business_id uuid [NOT NULL]
+  location_start_id uuid [NOT NULL]
+  location_end_id uuid [NOT NULL]
+  type varchar(50) [NOT NULL]
+  date date
+  time time
+  timezone timezone [NOT NULL]
+  departed_at timestamptz
+  arrived_at timestamptz
+  created_at timestamptz [NOT NULL, default: `CURRENT_TIMESTAMP`]
+  updated_at timestamptz [NOT NULL, default: `CURRENT_TIMESTAMP`]
+  deleted boolean [NOT NULL, default: false]
+}
+
+Table shipment_item as si {
+  item_id uuid [NOT NULL]
+  shipment_id uuid [NOT NULL]
+  variants varchar(500) [NOT NULL, default: '[]']
+  quantity int [NOT NULL]
+}
+
+Table order as o {
+  id uuid [pk, NOT NULL, default: `uuid_generate_v4()`]
+  business_id uuid [NOT NULL]
+  employee_id uuid [NOT NULL]
+  customer_id uuid [NOT NULL]
+  state varchar(50) [NOT NULL]
+  total_items int [NOT NULL]
+  subtotal_amount float [NOT NULL]
+  total_amount float
+  tax_rate float
+  json varchar(MAX)
+  created_at timestamptz [NOT NULL, default: `CURRENT_TIMESTAMP`]
+  deleted boolean
+}
+
+Table order_item as oi {
+  id uuid [pk, NOT NULL, default: `uuid_generate_v4()`]
+  order_id uuid [NOT NULL]
+  item_id uuid [NOT NULL]
+  variants varchar(500) [NOT NULL, default: '[]']
+  quantity int
+  unit_price float
+}
+
+Table transaction as t {
+  id uuid [pk, NOT NULL, default: `uuid_generate_v4()`]
+  amount float [NOT NULL]
+  name varchar(100)
+  type varchar(50)
+  object_id uuid
+  created_at timestamptz [NOT NULL, default: `CURRENT_TIMESTAMP`]
+}
+
+Table customer as c {
+  id uuid [pk, NOT NULL, default: `uuid_generate_v4()`]
+  business_id uuid [NOT NULL]
+  first_name varchar(50) [NOT NULL]
+  last_name varchar(50) [NOT NULL]
+  phone_number varchar(50) [NOT NULL]
+  address varchar(200) [NOT NULL]
+  postal_code varchar(50) [NOT NULL]
+  email varchar(250) [NOT NULL]
+}
+
+Table system_log as sl {
+  severity varchar(50)
+  message varchar(MAX)
+  created_at timestamptz
+}
+
+// Relate models to business
+Ref: b.owner_id - u.id
+Ref: l.business_id > b.id
+Ref: i.business_id > b.id
+Ref: u.business_id > b.id
+Ref: o.business_id > b.id
+Ref: s.business_id > b.id
+Ref: c.business_id > b.id
+
+// Location inventory
+Ref: li.item_id > i.id
+Ref: li.location_id > l.id
+
+// Variant groups and variants
+Ref: vg.item_id > i.id
+Ref: v.variant_group_id > vg.id
+
+// Shipment inventory, location, scheduled shipment
+Ref: si.item_id > i.id
+Ref: si.shipment_id > s.id
+Ref: s.id > s.scheduled_shipment_id
+Ref: s.location_start_id - l.id
+Ref: s.location_end_id - l.id
+
+// Order, employee, customer, order items
+Ref: o.employee_id - u.id
+Ref: o.customer_id - c.id
+Ref: oi.order_id > o.id
+Ref: oi.item_id > i.id

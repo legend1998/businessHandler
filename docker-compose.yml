@@ -1,0 +1,24 @@
+version: '3.5'
+services:
+  app:
+    container_name: app
+    image: node:14.15.4
+    volumes:
+      - ./app:/home/app:rw
+    working_dir: /home/app
+    command: bash -c "npm install && npm start"
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+  api:
+    container_name: api
+    image: node:14.15.4
+    volumes:
+      - ./api:/home/api:rw
+    working_dir: /home/api
+    command: bash -c "npm install && npm run start-local"
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001

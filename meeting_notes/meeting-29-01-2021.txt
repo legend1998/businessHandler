@@ -1,0 +1,8 @@
+UI/Mockups: Ian G, Liviu, (Helper: Kevin)
+Risk Assessment and Risk Management Plan: Mahad J, Cheikh
+Testing Plan: Ahmed
+Release Plan: Badr
+Software Architecture Document: Cristian, Jake, Kevin, + REST TO HELP
+User Stories Backlog: Done
+
+Miro board in resources that was for architecture.
