@@ -11,6 +11,7 @@ import IconAdd from '@material-ui/icons/Add';
 import IconEdit from '@material-ui/icons/Edit';
 import IconDelete from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
+import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import IntroPage from '../IntroPage';
@@ -23,6 +24,7 @@ import Network from '../../helpers/network';
 import { Location, LocationObject } from '../../types';
 
 import map from '../../assets/img/map.png';
+import ProductionRateManager from './ProductionRateManager';
 
 
 const useStyles = makeStyles(theme => ({
@@ -47,7 +49,8 @@ export default function LocationManager() {
     const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
-    const [currentLocation, setCurrentLocation] = useState<LocationObject | undefined>(undefined);
+    const [ShowRates, setShowRates] = useState(false);
+    const [currentLocation, setCurrentLocation] = useState<LocationObject>({} as LocationObject);
     const [locationList, setLocationList] = useState<LocationObject[]>([]);
     const [selection, setSelection] = useState<LocationObject[]>([]);
     const [loading, setLoading] = useState(false);
@@ -67,9 +70,13 @@ export default function LocationManager() {
                     <IconButton size="small" color="secondary" onClick={() => { setCurrentLocation(row as LocationObject); setShowEdit(true); }}>
                         <IconEdit/>
                     </IconButton>
+                    <IconButton size="small" color="secondary" className={classes.marginLeft} onClick={() => { setCurrentLocation(row as LocationObject); setShowRates(true); }}>
+                        <FolderOpenIcon/>
+                    </IconButton>
                     <IconButton size="small" color="primary" className={classes.marginLeft} onClick={() => { setSelection([row as LocationObject]); setShowDelete(true); }}>
                         <IconDelete/>
                     </IconButton>
+                  
                 </div>
         }
     ];
@@ -152,6 +159,7 @@ export default function LocationManager() {
             }
             <CreateLocationDialog open={showAdd} onClose={() => setShowAdd(false)} onCreateLocation={createLocation}/>
             <EditLocationDialog open={showEdit} onClose={() => setShowEdit(false)} location={currentLocation} onEditLocation={editLocation}/>
+            <ProductionRateManager open={ShowRates} onclose={() => setShowRates(false)} location={currentLocation}/>
             <DeleteLocationDialog open={showDelete} onClose={() => setShowDelete(false)} locations={selection} onDeleteLocations={deleteLocations}/>
         </div>
     );

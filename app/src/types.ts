@@ -13,6 +13,17 @@ export interface User {
     email: string
 }
 
+export interface ProductionRate{
+    id?:string,
+    item_id:string,
+    location_id:string,
+    frequency:string,
+    target_amount:number,
+    produced?:number,
+    created_at?:string,
+    updated_at?:string,
+}
+
 export interface UserObject extends User {
     id: string,
     business_id: string,
@@ -48,6 +59,7 @@ export interface Rule {
 }
 
 export interface Location {
+    id:string,
     name: string,
     address: string,
     city: string,

@@ -21,6 +21,7 @@ const orders = require("./routes/orders.js");
 const currencies = require("./routes/currencies.js");
 const shipments = require("./routes/shipments.js");
 const logs = require("./routes/logs.js");
+const productionrate = require("./routes/production-rates.js");
 const rules = require("./routes/rules.js");
 
 const app = express();
@@ -48,6 +49,7 @@ router.use("/users", users);
 router.use("/accounts", accounts);
 router.use("/items", items);
 router.use("/rules", rules);
+router.use("/productionRate", productionrate);
 router.use("/locations", locations);
 router.use("/customers", customers);
 router.use("/orders", orders);

@@ -51,7 +51,7 @@ export default function CreateItemDialog(props: CreateRuleProps) {
 
   // Effects
 
-  useEffect(() => getItemList(), []);
+  useEffect(() => getItemList(), [open]);
 
   // Functions
   function handleClose() {
